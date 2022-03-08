@@ -24,7 +24,7 @@ public class Pessoa implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 
 	private String nome;
 	private String cpf;
@@ -35,18 +35,15 @@ public class Pessoa implements Serializable {
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date dataNascimento;
 
-	
 	@ElementCollection
 	@CollectionTable(name = "email")
 	private Set<String> emails = new HashSet<>();
-/*
-	//@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
+
+	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
 	private List<Telefone> telefones;
-	
-	//@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
-	private List<Consulta> consultas;
-		
-	*/
+
+	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
+	private List<Consulta> consultas = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
 	private List<Endereco> enderecos = new ArrayList<>();
@@ -55,8 +52,9 @@ public class Pessoa implements Serializable {
 	public Pessoa() {
 	}
 
-	public Pessoa(String nome, String cpf, String rg, String sexo, String estadoCivil, Date dataNascimento) {
+	public Pessoa(Integer id, String nome, String cpf, String rg, String sexo, String estadoCivil, Date dataNascimento) {
 		super();
+		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.rg = rg;
@@ -65,11 +63,11 @@ public class Pessoa implements Serializable {
 		this.dataNascimento = dataNascimento;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

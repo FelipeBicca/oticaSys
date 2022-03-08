@@ -8,25 +8,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.felipebicca.otica.domain.Pessoa;
-import com.felipebicca.otica.services.PessoaService;
+import com.felipebicca.otica.domain.Consulta;
+import com.felipebicca.otica.services.ConsultaService;
 
 @RestController
-@RequestMapping(value = "/Pessoas")
-public class PessoaResource {
+@RequestMapping(value = "/Consultas")
+public class ConsultaResource {
 	
 	@Autowired
-	private PessoaService service;
+	private ConsultaService service;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<Pessoa> find(@PathVariable Integer id) {
-		Pessoa obj = service.find(id);
+	public ResponseEntity<Consulta> find(@PathVariable Integer id) {
+		Consulta obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Pessoa>> findAll() {
-		List<Pessoa> list = service.findAll();
+	public ResponseEntity<List<Consulta>> findAll() {
+		List<Consulta> list = service.findAll();
 
 		return ResponseEntity.ok().body(list);
 	}

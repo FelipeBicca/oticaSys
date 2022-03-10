@@ -1,16 +1,21 @@
 package com.felipebicca.otica.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Consulta implements Serializable {
@@ -25,9 +30,13 @@ public class Consulta implements Serializable {
 	
 	private String anotacao;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="pessoa_id")
 	private Pessoa pessoa;
+	
+	@OneToMany(mappedBy = "consulta", cascade = CascadeType.ALL)
+	private List<Receita> receitas = new ArrayList<>();
 	
 	public Consulta() {
 	}
@@ -69,6 +78,14 @@ public class Consulta implements Serializable {
 
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
+	}
+
+	public List<Receita> getReceitas() {
+		return receitas;
+	}
+
+	public void setReceitas(List<Receita> receitas) {
+		this.receitas = receitas;
 	}
 
 	@Override

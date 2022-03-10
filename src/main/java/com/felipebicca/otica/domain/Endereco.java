@@ -103,8 +103,8 @@ public class Endereco implements Serializable{
 		return pessoa;
 	}
 
-	public void setCliente(Pessoa cliente) {
-		this.pessoa = cliente;
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 	
 	public Cidade getCidade() {

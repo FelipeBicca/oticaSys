@@ -30,5 +30,4 @@ public class ConsultaResource {
 
 		return ResponseEntity.ok().body(list);
 	}
-
 }

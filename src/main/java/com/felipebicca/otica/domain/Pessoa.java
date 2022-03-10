@@ -36,19 +36,18 @@ public class Pessoa implements Serializable {
 	private Date dataNascimento;
 
 	@ElementCollection
-	@CollectionTable(name = "email")
+	@CollectionTable(name = "emails")
 	private Set<String> emails = new HashSet<>();
 
 	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
-	private List<Telefone> telefones;
-
-	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
-	private List<Consulta> consultas = new ArrayList<>();
+	private List<Telefone> telefones = new ArrayList<>();;
 	
 	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
 	private List<Endereco> enderecos = new ArrayList<>();
-
 	
+	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
+	private List<Consulta> consultas = new ArrayList<>();
+
 	public Pessoa() {
 	}
 
@@ -127,7 +126,14 @@ public class Pessoa implements Serializable {
 		this.emails = emails;
 	}
 
-	/*
+	public List<Endereco> getEnderecos() {
+		return enderecos;
+	}
+
+	public void setEnderecos(List<Endereco> enderecos) {
+		this.enderecos = enderecos;
+	}
+
 	public List<Telefone> getTelefones() {
 		return telefones;
 	}
@@ -143,14 +149,11 @@ public class Pessoa implements Serializable {
 	public void setConsultas(List<Consulta> consultas) {
 		this.consultas = consultas;
 	}
-	*/
 
-	public List<Endereco> getEnderecos() {
-		return enderecos;
+	@Override
+	public String toString() {
+		return "Pessoa [id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", rg=" + rg + ", sexo=" + sexo
+				+ ", estadoCivil=" + estadoCivil + ", dataNascimento=" + dataNascimento + ", emails=" + emails
+				+ ", telefones=" + telefones + ", consultas=" + consultas + ", enderecos=" + enderecos + "]";
 	}
-
-	public void setEnderecos(List<Endereco> enderecos) {
-		this.enderecos = enderecos;
-	}
-
 }

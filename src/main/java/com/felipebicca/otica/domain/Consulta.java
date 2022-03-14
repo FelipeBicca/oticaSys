@@ -24,20 +24,20 @@ public class Consulta implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm")
-	private Date dataConsulta;
-	
+	private Date dataConsulta = new Date();
+
 	private String anotacao;
-	
+
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name="pessoa_id")
+	@JoinColumn(name = "pessoa_id")
 	private Pessoa pessoa;
-	
+
 	@OneToMany(mappedBy = "consulta", cascade = CascadeType.ALL)
 	private List<Receita> receitas = new ArrayList<>();
-	
+
 	public Consulta() {
 	}
 
@@ -45,7 +45,13 @@ public class Consulta implements Serializable {
 		this.id = id;
 		this.anotacao = anotacao;
 		this.pessoa = pessoa;
-		this.dataConsulta = new Date();
+	}
+
+	public Consulta(Integer id, String anotacao, Pessoa pessoa, List<Receita> receitas) {
+		this.id = id;
+		this.anotacao = anotacao;
+		this.pessoa = pessoa;
+		this.receitas = receitas;
 	}
 
 	public Integer getId() {

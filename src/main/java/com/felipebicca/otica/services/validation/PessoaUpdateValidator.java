@@ -37,7 +37,15 @@ public class PessoaUpdateValidator implements ConstraintValidator<PessoaUpdate, 
 
 		List<FieldMessage> list = new ArrayList<>();
 
-		Pessoa aux = repo.findByEmails(objDto.getEmails().get(0));
+		String emailAux = null;
+
+		for (String s : objDto.getEmails()) {
+			if (emailAux.isEmpty()) {
+				emailAux = s;
+			}
+		}
+
+		Pessoa aux = repo.findByEmails(emailAux);
 
 		if (aux != null && !aux.getId().equals(uriId)) {
 			list.add(new FieldMessage("Email", "E-mail já existente"));
@@ -48,6 +56,7 @@ public class PessoaUpdateValidator implements ConstraintValidator<PessoaUpdate, 
 			context.buildConstraintViolationWithTemplate(e.getMessage()).addPropertyNode(e.getFieldName())
 					.addConstraintViolation();
 		}
+
 		return list.isEmpty();
 	}
 

@@ -1,15 +1,14 @@
 package com.felipebicca.otica.dto;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.felipebicca.otica.services.validation.PessoaUpdate;
+import com.felipebicca.otica.domain.Pessoa;
 
-@PessoaUpdate
 public class PessoaDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -21,12 +20,19 @@ public class PessoaDTO implements Serializable {
 
 	//@NotEmpty(message = "Preenchimento obrigatório")
 	//@Email(message = "E-mail inválido")
-	private List<String> emails;
+	private Set<String> emails;
 
 	public PessoaDTO() {
 	}
+	
+	public PessoaDTO(Pessoa pessoa) {
+		this.id = pessoa.getId();
+		this.nome = pessoa.getNome();
+		this.emails = pessoa.getEmails();
+	}
 
-	public PessoaDTO(Integer id, String nome,List<String> email) {
+
+	public PessoaDTO(Integer id, String nome, Set<String> email) {
 		this.id = id;
 		this.nome = nome;
 		this.emails = email;
@@ -48,11 +54,11 @@ public class PessoaDTO implements Serializable {
 		this.nome = nome;
 	}
 
-	public List<String> getEmails() {
+	public Set<String> getEmails() {
 		return emails;
 	}
 
-	public void setEmails(List<String> email) {
+	public void setEmails(Set<String> email) {
 		this.emails = email;
 	}
 

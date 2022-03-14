@@ -7,6 +7,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +21,7 @@ import com.felipebicca.otica.dto.PessoaDTO;
 import com.felipebicca.otica.dto.PessoaNewDTO;
 import com.felipebicca.otica.repositories.EnderecoRepository;
 import com.felipebicca.otica.repositories.PessoaRepository;
+import com.felipebicca.otica.services.exceptions.DataIntegrityException;
 import com.felipebicca.otica.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -95,6 +100,21 @@ public class PessoaService {
 		}
 
 		return pessoa;
+	}
+
+	public Page<Pessoa> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+
+		return repo.findAll(pageRequest);
+	}
+
+	public void delete(Integer id) {
+		find(id);
+		try {
+			repo.deleteById(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possível excluir pois há pedidos relacionados.");
+		}
 	}
 
 }

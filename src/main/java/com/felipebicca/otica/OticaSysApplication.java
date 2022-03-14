@@ -18,9 +18,11 @@ import com.felipebicca.otica.domain.Receita;
 import com.felipebicca.otica.domain.Telefone;
 import com.felipebicca.otica.repositories.CidadeRepository;
 import com.felipebicca.otica.repositories.ConsultaRepository;
+import com.felipebicca.otica.repositories.DioptriaRepository;
 import com.felipebicca.otica.repositories.EnderecoRepository;
 import com.felipebicca.otica.repositories.EstadoRepository;
 import com.felipebicca.otica.repositories.PessoaRepository;
+import com.felipebicca.otica.repositories.ReceitaRepository;
 import com.felipebicca.otica.repositories.TelefoneRepository;
 
 @SpringBootApplication
@@ -43,11 +45,17 @@ public class OticaSysApplication implements CommandLineRunner {
 
 	@Autowired
 	private TelefoneRepository telefoneRepository;
+	
+	@Autowired
+	private ReceitaRepository receitaRepository;
+	
+	@Autowired
+	private DioptriaRepository dioptriaRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(OticaSysApplication.class, args);
 	}
-
+	
 	@Override
 	public void run(String... args) throws Exception {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -102,15 +110,8 @@ public class OticaSysApplication implements CommandLineRunner {
 		enderecoRepository.saveAll(Arrays.asList(e1, e2, e3, e4));
 		telefoneRepository.saveAll(Arrays.asList(t1, t2, t3, t4));
 		
-
-		//dioptriaRepository.saveAll(Arrays.asList(dipCons1Direito, dipCons1Esquerdo));
-		//receitaRepository.saveAll(Arrays.asList(rec1));
 		consultaRepository.saveAll(Arrays.asList(cons1, cons2, cons3));
-		
-		
-
-		
-
-
+		receitaRepository.saveAll(Arrays.asList(rec1));
+		dioptriaRepository.saveAll(Arrays.asList(dipCons1Direito, dipCons1Esquerdo));
 	}
 }

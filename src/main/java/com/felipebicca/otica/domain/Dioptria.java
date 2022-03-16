@@ -6,10 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Dioptria implements Serializable{
@@ -25,22 +21,16 @@ public class Dioptria implements Serializable{
 	private Double adicao;
 	private String observacao;
 	
-	@JsonIgnore
-	@OneToOne
-	@JoinColumn(name = "receita_id")
-	private Receita receita;
-	
 	public Dioptria() {
 	}
 	
-	public Dioptria(Integer id, Double esferico, Double cilindro, Integer eixo, Double adicao, String observacao, Receita rec) {
+	public Dioptria(Integer id, Double esferico, Double cilindro, Integer eixo, Double adicao, String observacao) {
 		this.id = id;
 		this.esferico = esferico;
 		this.cilindro = cilindro;
 		this.eixo = eixo;
 		this.adicao = adicao;
 		this.observacao = observacao;
-		this.receita = rec;
 	}
 
 	public Integer getId() {
@@ -89,14 +79,6 @@ public class Dioptria implements Serializable{
 
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
-	}
-
-	public Receita getReceita() {
-		return receita;
-	}
-
-	public void setReceita(Receita receita) {
-		this.receita = receita;
 	}
 
 	@Override

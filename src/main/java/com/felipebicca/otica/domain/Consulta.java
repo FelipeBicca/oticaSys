@@ -25,7 +25,7 @@ public class Consulta implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@JsonFormat(pattern = "dd/MM/yyyy hh:mm")
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date dataConsulta = new Date();
 
 	private String anotacao;

@@ -16,7 +16,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.felipebicca.otica.domain.Consulta;
 import com.felipebicca.otica.domain.Pessoa;
-import com.felipebicca.otica.domain.Receita;
 import com.felipebicca.otica.dto.ConsultaNewDTO;
 import com.felipebicca.otica.services.ConsultaService;
 import com.felipebicca.otica.services.PessoaService;
@@ -47,13 +46,11 @@ public class ConsultaResource {
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody ConsultaNewDTO obj) {
 		Pessoa pessoa = pessoaService.find(obj.getIdPessoa());
-		List<Receita> receitas = obj.getReceitas();
 		Consulta cons = service.fromDTO(obj, pessoa);
-		cons = service.insert(cons, receitas);
+		cons = service.insert(cons, obj.getReceitas());
 
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 
 		return ResponseEntity.created(uri).build();
 	}
-
 }

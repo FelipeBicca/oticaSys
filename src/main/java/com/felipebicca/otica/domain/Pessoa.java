@@ -40,18 +40,19 @@ public class Pessoa implements Serializable {
 	private Set<String> emails = new HashSet<>();
 
 	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
-	private List<Telefone> telefones = new ArrayList<>();;
-	
+	private List<Telefone> telefones = new ArrayList<>();
+
 	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
 	private List<Endereco> enderecos = new ArrayList<>();
-	
+
 	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
 	private List<Consulta> consultas = new ArrayList<>();
 
 	public Pessoa() {
 	}
 
-	public Pessoa(Integer id, String nome, String cpf, String rg, String sexo, String estadoCivil, Date dataNascimento) {
+	public Pessoa(Integer id, String nome, String cpf, String rg, String sexo, String estadoCivil,
+			Date dataNascimento) {
 		super();
 		this.id = id;
 		this.nome = nome;

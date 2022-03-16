@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -26,13 +25,13 @@ public class Receita implements Serializable {
 	@JoinColumn(name = "consulta_id")
 	private Consulta consulta;
 
-	@ManyToOne(cascade = CascadeType.PERSIST)
-	@OneToOne
+	//@OneToOne(mappedBy = "receita", cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "dioptria_od_id")
 	private Dioptria dioptriaDireito;
 
-	@ManyToOne(cascade = CascadeType.PERSIST)
-	@OneToOne
+	//@OneToOne(mappedBy = "receita", cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "dioptria_oe_id")
 	private Dioptria dioptriaEsquerdo;
 

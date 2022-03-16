@@ -10,11 +10,15 @@ public class ConsultaNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
+	
 	private Integer idPessoa;
 	
 	private String anotacao;
 
 	private List<Receita> receitas = new ArrayList<>();
+
+	public ConsultaNewDTO() {
+	}
 
 	public Integer getId() {
 		return id;

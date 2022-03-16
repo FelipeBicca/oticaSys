@@ -19,7 +19,6 @@ import com.felipebicca.otica.domain.Pessoa;
 import com.felipebicca.otica.domain.Telefone;
 import com.felipebicca.otica.dto.PessoaDTO;
 import com.felipebicca.otica.dto.PessoaNewDTO;
-import com.felipebicca.otica.repositories.EnderecoRepository;
 import com.felipebicca.otica.repositories.PessoaRepository;
 import com.felipebicca.otica.services.exceptions.DataIntegrityException;
 import com.felipebicca.otica.services.exceptions.ObjectNotFoundException;
@@ -30,8 +29,6 @@ public class PessoaService {
 	@Autowired
 	private PessoaRepository repo;
 
-	@Autowired
-	private EnderecoRepository endRepo;
 
 	public Pessoa find(Integer id) {
 		Optional<Pessoa> obj = repo.findById(id);
@@ -44,7 +41,7 @@ public class PessoaService {
 	public Pessoa insert(Pessoa obj) {
 		obj.setId(null);
 		repo.save(obj);
-		endRepo.saveAll(obj.getEnderecos());
+		//endRepo.saveAll(obj.getEnderecos());
 		return obj;
 	}
 
@@ -108,13 +105,11 @@ public class PessoaService {
 		return repo.findAll(pageRequest);
 	}
 
-	public void delete(Integer id) {
-		find(id);
+	public void delete(Integer id) {	
 		try {
 			repo.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Não é possível excluir pois há pedidos relacionados.");
+			throw new DataIntegrityException("Não é possível excluir pois há consultas relacionados.");
 		}
 	}
-
 }

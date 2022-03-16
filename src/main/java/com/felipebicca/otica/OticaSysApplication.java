@@ -45,17 +45,17 @@ public class OticaSysApplication implements CommandLineRunner {
 
 	@Autowired
 	private TelefoneRepository telefoneRepository;
-	
+
 	@Autowired
 	private ReceitaRepository receitaRepository;
-	
+
 	@Autowired
 	private DioptriaRepository dioptriaRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(OticaSysApplication.class, args);
 	}
-	
+
 	@Override
 	public void run(String... args) throws Exception {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -80,9 +80,6 @@ public class OticaSysApplication implements CommandLineRunner {
 		Endereco e3 = new Endereco(null, "Senador Alberto Pasqualine", "391", "Ap. 1", "CEDRO", "96201050", p2, c2);
 		Endereco e4 = new Endereco(null, "Antenor Moreira de Castro", "21", "", "Vila Dr. Bucão", "97390000", p2, c4);
 
-		p1.getEnderecos().addAll(Arrays.asList(e1, e2));
-		p2.getEnderecos().addAll(Arrays.asList(e3, e4));
-
 		Telefone t1 = new Telefone(null, 53, "991254000", true, p1);
 		Telefone t2 = new Telefone(null, 53, "32335025", false, p1);
 		Telefone t3 = new Telefone(null, 53, "991423211", true, p2);
@@ -93,25 +90,26 @@ public class OticaSysApplication implements CommandLineRunner {
 		Consulta cons3 = new Consulta(null, "Cliente é cega, tem uma miopia e astigmatismo", p2);
 
 		Receita rec1 = new Receita(null, cons2, 64.00, 32.00, 32.00);
-		
-		Dioptria dipCons1Direito = new Dioptria(null, 1.00, -0.50, 15, 0.00, "", rec1);
-		Dioptria dipCons1Esquerdo = new Dioptria(null, 1.50, -0.75, 160, 0.00, "", rec1);
-		
+
+		Dioptria dipCons1Direito = new Dioptria(null, 1.00, -0.50, 15, 0.00, "");
+		Dioptria dipCons1Esquerdo = new Dioptria(null, 1.50, -0.75, 160, 0.00, "");
+
 		rec1.setDioptriaDireito(dipCons1Direito);
 		rec1.setDioptriaEsquerdo(dipCons1Esquerdo);
-		
-		cons2.getReceitas().add(rec1);
+
+		p1.getEnderecos().addAll(Arrays.asList(e1, e2));
+		p2.getEnderecos().addAll(Arrays.asList(e3, e4));
+
+		p1.getTelefones().addAll(Arrays.asList(t1, t2));
+		p2.getTelefones().addAll(Arrays.asList(t3, t4));
 
 		estadoRepository.saveAll(Arrays.asList(est1, est2));
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3, c4));
 
 		pessoaRepo.saveAll(Arrays.asList(p1, p2));
 
-		enderecoRepository.saveAll(Arrays.asList(e1, e2, e3, e4));
-		telefoneRepository.saveAll(Arrays.asList(t1, t2, t3, t4));
-		
 		consultaRepository.saveAll(Arrays.asList(cons1, cons2, cons3));
 		receitaRepository.saveAll(Arrays.asList(rec1));
-		dioptriaRepository.saveAll(Arrays.asList(dipCons1Direito, dipCons1Esquerdo));
+
 	}
 }

@@ -11,7 +11,6 @@ import javax.validation.Payload;
 @Constraint(validatedBy = PessoaUpdateValidator.class)
 @Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
-
 public @interface PessoaUpdate {
 	String message() default "Erro de validação";
 

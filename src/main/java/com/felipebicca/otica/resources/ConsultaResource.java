@@ -17,6 +17,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.felipebicca.otica.domain.Consulta;
 import com.felipebicca.otica.domain.Pessoa;
 import com.felipebicca.otica.dto.ConsultaNewDTO;
+import com.felipebicca.otica.dto.PessoaDTO;
 import com.felipebicca.otica.services.ConsultaService;
 import com.felipebicca.otica.services.PessoaService;
 
@@ -52,5 +53,19 @@ public class ConsultaResource {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 
 		return ResponseEntity.created(uri).build();
+	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Consulta> delete(@PathVariable Integer id) {
+		service.delete(id);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> update(@Valid @RequestBody Consulta obj, @PathVariable Integer id) {
+		obj.setId(id);
+		obj = service.update(obj);
+
+		return ResponseEntity.noContent().build();
 	}
 }

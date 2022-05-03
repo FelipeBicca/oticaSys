@@ -41,7 +41,6 @@ public class PessoaService {
 	public Pessoa insert(Pessoa obj) {
 		obj.setId(null);
 		repo.save(obj);
-		//endRepo.saveAll(obj.getEnderecos());
 		return obj;
 	}
 

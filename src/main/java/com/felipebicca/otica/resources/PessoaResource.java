@@ -76,5 +76,4 @@ public class PessoaResource {
 
 		return ResponseEntity.ok().body(listDTO);
 	}
-
 }
